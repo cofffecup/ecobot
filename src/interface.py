@@ -47,6 +47,7 @@ def admin_panel(message):
 # 12 - Статьи
 
 def callback_parser(call):
+    num = 0
     if call.data == 'map':
         num = 3
     elif call.data == 'ivent':
@@ -60,18 +61,19 @@ def callback_parser(call):
     elif call.data == 'markets':
         num = 4
     elif call.data == 'rejection':
-        pass
+        num = 7
     elif call.data == 'sorting':
-        pass
+        num = 9
     elif call.data == 'reuse':
-        pass
+        num = 8
     elif call.data == 'saving':
-        pass
+        num = 10
     elif call.data == 'article':
         num = 12
     elif call.data == 'video':
         num = 11
-    message_text = logic.get_ivent_message_text(num)
-    for line in message_text:
-        bot.send_message(call.message.chat.id, text=line)
+    if num != 0:
+        message_text = logic.get_text(num)
+        for line in message_text:
+            bot.send_message(call.message.chat.id, text=line)
 

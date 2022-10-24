@@ -53,7 +53,12 @@ def get_text(num):
     i = 0
     text = []
     for row in res:
-        tmp = row[0] + '\n\n' + row[1] + '\n\n' + row[2]
+        if row[0] != None:
+            tmp = row[0] + '\n\n'
+        if row[1] != None:
+            tmp += row[1] + '\n\n'
+        if row[2] != None:
+            tmp += row[2]
         text.append(tmp)
         i += 1
     return text
