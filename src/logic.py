@@ -48,3 +48,12 @@ def fourth_chapter_buttons():
     return kb
 
 
+def get_text(num):
+    res = db.get_info(num)
+    i = 0
+    text = []
+    for row in res:
+        tmp = row[0] + '\n\n' + row[1] + '\n\n' + row[2]
+        text.append(tmp)
+        i += 1
+    return text

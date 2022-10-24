@@ -13,31 +13,52 @@ def give_menu(message):
 
 @bot.message_handler(content_types=['text'])
 def menu_parser(message):
-    if message.text == '♻️ Сбор вторсырья':
-        kb = logic.first_chapter_buttons()
-    elif message.text == '🌿 Эко-инициативы':
-        kb = logic.second_chapter_buttons()
-    elif message.text == '🐾 Полезные эко-привычки':
-        kb = logic.third_chapter_buttons()
-    elif message.text == '❗️ Почему это важно':
-        kb = logic.fourth_chapter_buttons()
-    bot.send_message(message.chat.id, text="Выберите то, о чем вы хотите узнать подробнее:", reply_markup=kb)
+    if message.text == 'ecoadminmode':
+        admin_panel(message)
+    else:
+        if message.text == '♻️ Сбор вторсырья':
+            kb = logic.first_chapter_buttons()
+        elif message.text == '🌿 Эко-инициативы':
+            kb = logic.second_chapter_buttons()
+        elif message.text == '🐾 Полезные эко-привычки':
+            kb = logic.third_chapter_buttons()
+        elif message.text == '❗️ Почему это важно':
+            kb = logic.fourth_chapter_buttons()
+        bot.send_message(message.chat.id, text="Выберите то, о чем вы хотите узнать подробнее:", reply_markup=kb)
+
+
+def admin_panel(message):
+    bot.send_message(message.chat.id, text="Выбер")
 
 
 @bot.callback_query_handler(func=lambda message: True)
+
+# 1 - Информация о раздельном сборе
+# 2 - Мероприятия по массовому сбору мусора
+# 3 - Карта пунктов сбора вторсырья
+# 4 - Маркеты и магазины эко-товаров
+# 5 - Приложения для смартфонов
+# 6 - Эко-организации
+# 7 - Экономия ресурсов
+# 8 - Повторное использование
+# 9 - Сортировка мусора
+# 10 - Отказ от одноразового
+# 11 - Видео
+# 12 - Статьи
+
 def callback_parser(call):
     if call.data == 'map':
-        pass
+        num = 3
     elif call.data == 'ivent':
-        pass
+        num = 2
     elif call.data == 'trash_info':
         pass
     elif call.data == 'organizations':
-        pass
+        num = 6
     elif call.data == 'apps':
-        pass
+        num = 5
     elif call.data == 'markets':
-        pass
+        num = 4
     elif call.data == 'rejection':
         pass
     elif call.data == 'sorting':
@@ -46,4 +67,11 @@ def callback_parser(call):
         pass
     elif call.data == 'saving':
         pass
+    elif call.data == 'article':
+        num = 12
+    elif call.data == 'video':
+        num = 11
+    message_text = logic.get_ivent_message_text(num)
+    for line in message_text:
+        bot.send_message(call.message.chat.id, text=line)
 
